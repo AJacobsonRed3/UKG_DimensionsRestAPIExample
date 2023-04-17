@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "3b49fe56-99ce-49ed-bfc0-2407d4d654e8",
+		"name": "UKG Dimensions GitHub",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25251714"
+	},
+	"item": [
+		{
+			"name": "Get Access Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"AccessToken\", pm.response.json().access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "appkey",
+						"value": "{{appkey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{UserName}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{Password}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "auth_chain",
+							"value": "OAuthLdapService",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{VanityURL}}/api/authentication/access_token",
+					"protocol": "https",
+					"host": [
+						"{{VanityURL}}"
+					],
+					"path": [
+						"api",
+						"authentication",
+						"access_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Person By Extension",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "appkey",
+						"value": "{{appkey}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{VanityURL}}/api/v1/commons/persons/employee?person_number={{person_number}}",
+					"protocol": "https",
+					"host": [
+						"{{VanityURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"commons",
+						"persons",
+						"employee"
+					],
+					"query": [
+						{
+							"key": "person_number",
+							"value": "{{person_number}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
